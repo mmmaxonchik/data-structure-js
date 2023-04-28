@@ -1,0 +1,19 @@
+{
+  "name": "data-structure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmmaxonchik/data-structure-js.git"
+  },
+  "author": "mmmmaxonchik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmmaxonchik/data-structure-js/issues"
+  },
+  "homepage": "https://github.com/mmmaxonchik/data-structure-js#readme"
+}
