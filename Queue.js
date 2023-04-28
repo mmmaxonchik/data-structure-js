@@ -37,11 +37,11 @@ class Queue {
     }
 
     /**
-     * Извлекаем node из начала очереди
+     * Извлекает узел из начала очереди.
      *
      * @returns {Queue}
      */
-    pop () {
+    shift () {
         if (!this.first && !this.last) return this
         this.first = this.first.next
         this.length--
