@@ -5,12 +5,14 @@ class QueueNode {
 
     }
 }
+
 class Queue {
     constructor() {
         this.first = null
         this.last = null
         this.length = 0
     }
+
     /**
      * Записывает новую node в конец очереди
      *
@@ -33,6 +35,7 @@ class Queue {
         return this
 
     }
+
     /**
      * Извлекаем node из начала очереди
      *
@@ -44,22 +47,42 @@ class Queue {
         this.length--
         if (this.length === 0) this.last = null
         return this
-    }/**
+    }
+
+    /**
      * Преобразовывает очередь в массив значений
      *
      * @returns {any []}
      */
     toArray(){
-        const nodeArr = []
-        let copy = JSON.parse(JSON.stringify(this))
-        while (copy.first) {
-            nodeArr.push(copy.first.data)
-            copy.first = copy.first.next
+        const dataArr = []
+        while (this.first) {
+            dataArr.push(this.first.data)
+            this.first = this.first.next
         }
-        copy = null
-        return nodeArr
+        return dataArr
+    }
+
+    /**
+     * Статическое приватное свойство для метода toArray()
+     * @type {any[]}
+     */
+    static #dataArr = []
+    /**
+     * Статический метод класса Queue, возвращает массив с данными из очереди.
+     *
+     * @param first - Параметром передается obj.first
+     * @returns {any[]}
+     */
+    static toArray(first){
+        if (first) {
+            this.#dataArr.push(first.data)
+            return this.toArray(first.next)
+        }
+        return this.#dataArr
     }
 }
+
 module.exports = {
     QueueNode,
     Queue

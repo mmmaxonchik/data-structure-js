@@ -12,11 +12,13 @@ class ListNode {
         return `${this.data}`
     }
 }
+
 class LinkedList {
     constructor() {
         this.head = null
         this.tail = null
     }
+
     /**
      * Добавляет в конец новый узел списка.
      *
@@ -34,6 +36,7 @@ class LinkedList {
         this.tail = node
         return this
     }
+
     /**
      * Добавляет в начало новый узел списка.
      *
@@ -51,6 +54,7 @@ class LinkedList {
         this.head = node
         this.head.next = prevNode
     }
+
     /**
      * Преобразует список в массив.
      *
@@ -58,16 +62,14 @@ class LinkedList {
      */
     toArray() {
        const nodes = []
-        let copy = JSON.parse(JSON.stringify(this))
-       let currentNode = copy.head
-        while (currentNode) {
-           nodes.push(currentNode.data)
-           currentNode = currentNode.next
+        while (this.head) {
+           nodes.push(this.head.data)
+            this.head = this.head.next
         }
-        copy = null
         return nodes
     }
 }
+
 module.exports = {
     ListNode,
     LinkedList
