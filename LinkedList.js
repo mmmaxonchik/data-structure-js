@@ -12,7 +12,6 @@ class ListNode {
         return `${this.data}`
     }
 }
-
 class LinkedList {
     constructor() {
         this.head = null
@@ -21,7 +20,7 @@ class LinkedList {
     /**
      * Добавляет в конец новый узел списка.
      *
-     * @param {data} data Данные для узла списка.
+     * @param {any} data Данные для узла списка.
      * @return {this} this.
      */
     append(data){
@@ -59,15 +58,16 @@ class LinkedList {
      */
     toArray() {
        const nodes = []
-       let currentNode = this.head
+        let copy = JSON.parse(JSON.stringify(this))
+       let currentNode = copy.head
         while (currentNode) {
-           nodes.push(currentNode.toString())
+           nodes.push(currentNode.data)
            currentNode = currentNode.next
         }
+        copy = null
         return nodes
     }
 }
-
 module.exports = {
     ListNode,
     LinkedList

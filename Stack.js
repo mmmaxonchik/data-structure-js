@@ -4,7 +4,6 @@ class StackNode {
         this.prev = prev
     }
 }
-
 class Stack {
     constructor() {
         this.last = null
@@ -29,7 +28,6 @@ class Stack {
         return this
     }
 }
-
 module.exports = {
     StackNode,
     Stack
