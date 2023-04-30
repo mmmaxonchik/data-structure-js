@@ -5,7 +5,6 @@ class TreeNode {
         this.rightChild = secondChild
     }
 }
-
 class BinarySearchTree {
     constructor() {
         this.tree = null
@@ -40,7 +39,6 @@ class BinarySearchTree {
         }
     }
 
-
     /**
      * Вспомогательная статическая переменная для метода traversalTree.
      * @type {number[]}
@@ -60,6 +58,124 @@ class BinarySearchTree {
         return this.#traversalTreeArr
     }
 
+    /**
+     * Удаление узла из дерева.
+     *
+     * @param data{number}
+     * @returns {BinarySearchTree}
+     */
+    delete(data){
+        const childNode = this.#searchChildNode(this.tree, data)
+        // 1) Если такого узла нет
+        if (!childNode) return this
+        const parentNode =  this.#searchParentNode(childNode, this.tree)
+        // 2) Если у узла нет дочерних элементов
+        if (!childNode.leftChild && !childNode.rightChild) {
+            parentNode.leftChild === childNode
+                ? parentNode.leftChild = null
+                : parentNode.rightChild = null
+            return this
+        }
+        // 3) Если у узла один дочерний элемент
+        const haveOneRightNode = !childNode.leftChild && childNode.rightChild
+        const haveOneLeftNode = childNode.leftChild && !childNode.rightChild
+        if (haveOneRightNode) {
+            parentNode.leftChild === childNode
+                ? parentNode.leftChild = childNode.rightChild
+                : parentNode.rightChild = childNode.rightChild
+            return this
+        }
+        if (haveOneLeftNode) {
+            parentNode.leftChild === childNode
+                ? parentNode.leftChild = childNode.leftChild
+                : parentNode.rightChild = childNode.leftChild
+            return this
+        }
+        // 3) Если у узла два дочерних элемента
+        let minChildNode = this.#searchMinNode(childNode.rightChild)
+        const copyChildNode =  Object.assign({}, minChildNode)
+        const parentMinChildNode = this.#searchParentNode(minChildNode, parentNode)
+
+        parentMinChildNode.leftChild === minChildNode
+            ? parentMinChildNode.leftChild = null
+            : parentMinChildNode.rightChild = null
+        copyChildNode.leftChild = childNode.leftChild
+        copyChildNode.rightChild = childNode.rightChild
+        minChildNode = null
+        if (parentNode.leftChild === childNode) {
+            parentNode.leftChild = copyChildNode
+            return this
+        }
+        if (parentNode.rightChild === childNode) {
+            parentNode.rightChild = copyChildNode
+            return this
+        }
+
+    }
+
+    /**
+     * Вспомогательный приватный метод возвращающий дочерний узел по входным данным.
+     *
+     * @param node
+     * @param data
+     * @returns {null | TreeNode}
+     */
+    #searchChildNode(node, data) {
+        if (node.data === data) return node
+        if (node.data > data) {
+            return this.#searchChildNode(node.leftChild, data)
+        }
+        if (node.data < data) {
+            return this.#searchChildNode(node.rightChild, data)
+        }
+    }
+    /**
+     * Вспомогательный приватный метод возвращающий родителя узла по входному дочернему узлу.
+     * @param node
+     * @param tree
+     * @returns {TreeNode}
+     */
+    #searchParentNode(node, tree) {
+        if (tree.leftChild) {
+            if (tree.leftChild.data === node.data) {
+                return tree
+            }
+        }
+        if (tree.rightChild) {
+            if (tree.rightChild.data === node.data) {
+                return tree
+            }
+        }
+        if (node.data < tree.data) {
+            return this.#searchParentNode(node, tree.leftChild)
+        }
+        if (node.data > tree.data) {
+            return this.#searchParentNode(node, tree.rightChild)
+        }
+    }
+    /**
+     * Вспомогательный приватный метод возвращающий минимальный узел.
+     * @param node{TreeNode}
+     * @returns {TreeNode}
+     */
+    #searchMinNode(node){
+        if (!node.leftChild) return node
+        else {
+            return this.#searchMinNode(node.leftChild)
+        }
+    }
+
+    /**
+     * Статический метод реализующий логирование полного обхода дерева.
+     * @param tree
+     */
+    static traversalLogTree(tree){
+        if (tree !== null) {
+            console.log(tree.data)
+            this.traversalLogTree(tree.leftChild)
+            this.traversalLogTree(tree.rightChild)
+        }
+    }
 
     /**
      * Статический метод показывающий есть ли узел с указанными данными в данном дереве.
@@ -79,7 +195,7 @@ class BinarySearchTree {
         }
     }
 }
-
-
-
-
+module.exports = {
+    TreeNode,
+    BinarySearchTree
+}

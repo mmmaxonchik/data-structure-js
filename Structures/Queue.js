@@ -5,7 +5,6 @@ class QueueNode {
 
     }
 }
-
 class Queue {
     constructor() {
         this.first = null
@@ -82,7 +81,6 @@ class Queue {
         return this.#dataArr
     }
 }
-
 module.exports = {
     QueueNode,
     Queue

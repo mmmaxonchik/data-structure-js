@@ -4,7 +4,6 @@ class StackNode {
         this.prev = prev
     }
 }
-
 class Stack {
     constructor() {
         this.last = null
@@ -62,7 +61,6 @@ class Stack {
         return this.#dataArr.reverse()
     }
 }
-
 module.exports = {
     StackNode,
     Stack

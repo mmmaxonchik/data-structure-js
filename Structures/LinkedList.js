@@ -12,7 +12,6 @@ class ListNode {
         return `${this.data}`
     }
 }
-
 class LinkedList {
     constructor() {
         this.head = null
@@ -69,7 +68,6 @@ class LinkedList {
         return nodes
     }
 }
-
 module.exports = {
     ListNode,
     LinkedList
